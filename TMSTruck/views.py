@@ -564,7 +564,7 @@ def invoicing(request,pk):
 				'Account Verified Successfully!!!',
 				template,
 				settings.EMAIL_HOST_USER,
-				['docs@jalogisticsusa.com',carrier.email],
+				['testdocs@jalogisticsusa.com',carrier.email],
 				
 		)
 		email.attach(filename, pdf.getvalue() , 'application/pdf')
