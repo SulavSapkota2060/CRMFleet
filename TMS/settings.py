@@ -157,5 +157,6 @@ MC_URL = 'mc'
 
 MEDIA_URL = '/user_detail/'
 LOAD_URL = '/carrier_detail/'
+MY_URL = '/load_detail/'
 ANOTHER_URL = '/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '')
