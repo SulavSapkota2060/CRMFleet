@@ -1,0 +1,195 @@
+{% extends 'TMSTruck/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <style>
+        .card {
+            background-color: rgb(0, 0, 0);
+            font-family: Roboto;
+            color: black;
+        }
+
+        table {
+            font-size: 15px;
+            font-family: Roboto;
+        }
+
+        .main-body {
+            margin: 1rem 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-body">
+        {% if group == 'Accounting' %}
+        {% include 'TMSTruck/navbars/accounting_navbar.html' %}
+
+        {% elif group == 'Admin' %}
+        {% include 'TMSTruck/navbars/admin_navbar.html' %}
+
+        {% elif group == 'Hiring Manager' %}
+        {% include 'TMSTruck/navbars/hiring_manager_navbar.html' %}
+
+        {% elif group == 'Logistics Manager' %}
+        {% include 'TMSTruck/navbars/logistics_manager.html' %}
+
+        {% endif %}
+       
+        <br>
+         
+        <div class="header" style="display: flex; grid-gap: 54rem;">
+            <h2>Financial Look</h2>
+            <div style="float: right;" class="alert alert-success" style="width: 30%">
+                 {{user.first_name}} {{user.last_name}} [{{group}}]</div>
+        </div>
+        <div class="row">
+        <div class="col-md-3" ">
+                <div class=" card">
+            <div class="card-header">Last 7 days</div>
+            <div class="card-body">
+                <p>Total Loads: {{loadsCount.sevenLoads.count}}</p>
+                <p>My Profit: ${{profits.sevenDayProfit}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card">
+            <div class="card-header">Last 30 days</div>
+            <div class="card-body">
+                <p>Total Loads: {{loadsCount.thirtyLoads.count}}</p>
+                <p>My Profit: ${{profits.thirtyDayProfit}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header"><form action="" method="POST"> 
+                {% csrf_token %}From 
+                <input type="date" name="Datefrom" id="Datefrom"> 
+                to <input type="date" name="Dateto" id="Dateto"> 
+                <input type="submit" class="btn btn-outline-primary btn-sm" value="Submit">
+            </form> 
+        </div>
+            <div class="card-body">
+                <p>Total Loads: {{loadsCount.customLoads}}</p>
+                <p>My Profit: ${{con}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card">
+            <div class="card-header">YTD</div>
+            <div class="card-body">
+                <p>Total Loads: {{loadsCount.yearLoads.count}}</p>
+                <p>My Profit: ${{profits.oneYearProfit}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+
+                <div class="card-body">
+                    <h3 style="color: black;" class="card-title"><a href="{% url 'complete_load' %}">Active
+                            Loads</a></h3><br>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Driver</th>
+                                <th scope="col">Load #</th>
+                                <th scope="col">Origin</th>
+                                <th scope="col">Destination</th>
+                                <th scope="col">Miles</th>
+                                <th scope="col">Weight</th>
+                                <th scope="col">Stops</th>
+                                <th scope="col">Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for load in activeLoads %}
+                            <tr style="background-color: rgb(0, 92, 37); color: white;">
+                                <td>{{load.assignToCarrier}}</td>
+                                <td><a style="color: white;"
+                                        href="{% url 'load_detail' load.id %}">{{load.load_number}}</a></td>
+                                <td>{{load.pickupAddress}}</td>
+                                <td>{{load.final_address}}</td>
+                                <td>{{load.distance}}</td>
+                                <td>{{load.weight}} lbs</td>
+                                <td>{{load.stops}}</td>
+                                <td>${{load.rate}}</td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <div class="col-md-6">
+            <div class="card">
+
+                <div class="card-body">
+                    <h4 class="card-title"> <a href="{% url 'unpaid' %}">Unpaid Loads</a></h4><br>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Driver</th>
+                                <th scope="col">Load #</th>
+                                <th scope="col">Origin</th>
+                                <th scope="col">Destination</th>
+                                <th scope="col">Miles</th>
+                                <th scope="col">Weight</th>
+                                <th scope="col">Stops</th>
+                                <th scope="col">Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for load in unpaidLoads %}
+                            <tr style="background-color: rgb(184, 0, 0);color: white;">
+                                <td>{{load.assignToCarrier}}</td>
+                                <td><a style="color: white;"
+                                        href="{% url 'load_detail' load.id %}">{{load.load_number}}</a></td>
+                                <td>{{load.pickupAddress}}</td>
+                                <td>{{load.final_address}}</td>
+                                <td>{{load.distance}}</td>
+                                <td>{{load.weight}} lbs</td>
+                                <td>{{load.stops}}</td>
+                                <td>${{load.rate}}</td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+    </script>
+</body>
+
+</html>
+
+{% endblock %}

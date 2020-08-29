@@ -1,0 +1,283 @@
+{% extends 'TMSTruck/base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <style>
+        .input-group {
+            display: flex;
+            grid-gap: 20px;
+        }
+
+        #dropdown {
+            padding: 20px;
+            display: none;
+            position: absolute;
+            background-color: white;
+            width: 100%;
+            z-index: 2;
+            border: 1px solid #ccc;
+            box-shadow: 5px 5px 5px #ccc;
+            height: 13rem;
+            overflow-y: scroll;
+        }
+
+        #dropdown:nth-child(odd) {
+            cursor: pointer;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-body">
+
+        {% include 'TMSTruck/navbar.html' %}
+        <hr>
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                {% for message in message %}
+                <p>{{message}}</p>
+                {%  endfor %}
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Assign Load</h5>
+                    </div>
+                    <div class="card-body">
+
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                {{form.brokerage_name | as_crispy_field}}
+                                {{form.broker_name | as_crispy_field}}
+                                {{form.broker_phone | as_crispy_field}}
+
+                            </div>
+                            <div class="input-group">
+                                {{form.broker_email | as_crispy_field}}
+                                {{form.broker_address | as_crispy_field}}
+                            </div>
+                            <div class="input-group">
+                                <div style="position: relative;">
+                                    <label for="carrier">Select Carrier</label>
+                                    <input type="text" name="carrier" id="carrierSearch" class="form-control"
+                                        placeholder="Search">
+                                    <div id="dropdown">
+                                    </div>
+                                </div>
+                                <div> {{form.assignToCarrier | as_crispy_field}}</div>
+                                {{form.weight | as_crispy_field}}
+
+                                {{form.distance | as_crispy_field}}
+
+
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                {{form.rate | as_crispy_field}}
+
+                                <div>
+                                    <label for="pickupDate">PickUp Date</label>
+                                    <input style="height: 20px;" name="pickupDate" class="form-control" type="date"
+                                        name="" id="">
+
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                {{form.load_number | as_crispy_field}}
+                                <div style="display: none;">
+                                    <input type="text" name="dropAdd" id="id_dropOffAddress">
+                                </div>
+                                <div>
+                                    <label for="dropOffDate">Drop Off Date</label>
+                                    <input style="height: 20px;" name="dropOffDate" class="form-control" type="date"
+                                        name="" id="">
+
+                                </div>
+                             
+                            </div>
+                            <div class="input-group">
+                                {{form.first_availabe_pickup | as_crispy_field}}
+                                {{form.pickupAddress | as_crispy_field}}
+                            </div>
+                            <div class="input-group">
+                                {{form.rate_confirmation | as_crispy_field}}
+                            </div>
+
+                            <hr>
+                            <div class="inut-group">
+                                <div style="display: none;">{{form.stops | as_crispy_field}}</div>
+                                <label for="stops">Total Stops</label><br>
+                                <input type="text" name="stops" id="totalStops" class="form-control">
+                                <hr>
+
+                            </div>
+                            <div id="stop-input">
+                                <h3>Stop Addresses</h3>
+
+                            </div>
+                            <input type="button" value="Add" onclick="toJSON()" class="btn btn-primary btn-sm">
+                            <input class="btn btn-outline-dark mt-3" type="submit" value="Assign Load">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    // (function getDate(){
+    //     date_obj = new Date()
+    //     date = date_obj.getDate()
+    //     year = date_obj.getFullYear()
+    //     month = date_obj.getMonth()
+    //     full_date = `${year}-${month}-${date}`
+    //     console.log(full_date)
+    //     const x = document.getElementById("id_assignToCarrier")
+    // })()
+    const search = document.getElementById("carrierSearch");
+    search.addEventListener("click", showDropdown);
+    search.addEventListener("keyup", filterCarriers);
+
+
+
+
+
+
+    function showDropdown() {
+        console.log("HI")
+        const drop = document.getElementById("dropdown");
+        console.log(drop)
+        const select = document.getElementById("id_assignToCarrier");
+        const x = document.getElementById("id_assignToCarrier").innerHTML;
+        drop.innerHTML = ''
+        for (i = 1; i < select.length; i++) {
+            const text = select[i].textContent
+            let tag = `
+            
+            <div onclick=showText("${text}") id="dropdown-item">
+                <h6 id="drop">${text}</h6><hr>
+            </div>
+            `
+            drop.innerHTML += tag;
+            console.log(tag)
+        }
+        drop.style.display = "block";
+
+    }
+
+
+    function filterCarriers() {
+        const select = document.getElementById("id_assignToCarrier");
+        const active_search = document.getElementById("carrierSearch").value;
+        const drop = document.getElementById("dropdown");
+        drop.innerHTML = ''
+        for (i = 1; i < select.length; i++) {
+            if (select[i].textContent.toLowerCase().indexOf(active_search.toLowerCase()) != -1) {
+                const text = select[i].textContent
+                let tag = `
+            
+            <div onclick=showText("${text}") id="dropdown-item">
+                <h6 id="drop">${text}</h6><hr>
+            </div>
+            `
+                drop.innerHTML += tag;
+                console.log(tag)
+            }
+
+        }
+    }
+
+
+    function showText(text) {
+        search.value = text;
+        const select = document.getElementById("id_assignToCarrier");
+        document.getElementById("dropdown").style.display = 'none'
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    document.getElementById("totalStops").addEventListener("keyup", dropOffDisplay)
+
+    function dropOffDisplay() {
+        document.getElementById("stop-input").innerHTML = ''
+        const totalStops = document.getElementById("totalStops").value
+
+        const a = Number(totalStops)
+        console.log(a)
+
+        for (i = 0; i < a; i++) {
+            console.log(i)
+            field = `<h6>Drop Address ${i+1}</h6>
+        
+        <input type="text" name="dropOff_address" id="Address${i+1}" class="form-control">`
+            document.getElementById("stop-input").innerHTML += field;
+        }
+        stops = document.getElementById("id_stops")
+        stops.value = a
+    }
+
+
+
+
+
+
+    function toJSON() {
+        total_stops = document.getElementById("totalStops").value
+        a = Number(total_stops)
+        console.log(a)
+        let my_json = `
+    
+        {
+            "total_stops":${total_stops},
+            "stopAddresses":[]
+        }
+       
+    `
+        let obj = JSON.parse(my_json)
+
+        for (i = 1; i <= a; i++) {
+            let adr = document.getElementById(`Address${i}`).value
+            obj["stopAddresses"].push(adr)
+        }
+
+        string_json = JSON.stringify(obj)
+        drop_offAddress = document.getElementById("id_dropOffAddress")
+        drop_offAddress.value = string_json
+    }
+</script>
+
+</html>
+
+{% endblock %}

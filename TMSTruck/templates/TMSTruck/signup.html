@@ -1,0 +1,98 @@
+{% extends 'TMSTruck/base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+<style>
+    body{
+        overflow-x: hidden;
+    }
+    #form-group{
+        display: flex;
+        grid-gap: 10px;
+
+    }
+    .form{
+        position: relative;
+        z-index: 1;
+        background-color: white;
+        padding: 20px;
+        border-radius: 20px;
+        height: 130vh;
+        width: 100%;
+    }
+
+
+</style>
+    <body background="{% static 'images/landing_page.jpg' %}">
+        <div class="row">
+            <div class="col-md-10 mx-auto mt-3">
+                <div class="form">
+                <form class="mb-3" action="" method="POST"  enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h2 align="center">Register</h2>
+<hr>
+<div class="row">{% if message  %}
+    <div id='alert' class="alert alert-danger">{{message}}</div>
+    {% endif %}
+
+    <div class="col-md-5">  
+        {{actual_form | crispy}}
+                    <div id="form-group" class="name">
+                        <div>{{form.firstName | as_crispy_field }}</div>
+                        <div>{{form.lastName | as_crispy_field }}</div>
+                    </div>
+              
+                    <div id="form-group" class="email">
+                        <div>{{form.Phone | as_crispy_field }}</div>
+                    </div>
+                    <div " id="form-group" class="address">
+                        <div>{{form.address | as_crispy_field }}</div>
+                        
+                    </div>
+                    <div id="form-group" class="detail">
+                        <div>{{form.city | as_crispy_field }}</div>
+                        <div>{{form.state | as_crispy_field }}</div>
+                        <div>{{form.zipCode | as_crispy_field }}</div>
+                    </div>
+                  
+                </div>
+                <div class="col-md-7">
+             
+                    <div class="enrolled">
+                        {{form.userStatus | as_crispy_field}}
+                        {{form.commissionRate | as_crispy_field}}
+                        <div id="form-group">
+                            {{form.enrolledCarriers| as_crispy_field  }}
+                        </div>
+                    </div>
+           
+                    <div class="upload mt-5">
+                        <div>{{form.ndaNca | as_crispy_field  }}</div>
+                        <div>{{form.w9_upload | as_crispy_field  }}</div>
+                    </div>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Submit" class="btn btn-outline-dark btn-block mt-5">
+
+            </form>
+        </div>
+            </div>
+        </div>
+   
+        <script>
+            setTimeout(function(){
+                let x = document.getElementById("alert")
+                console.log(x)
+                x.style.display='none'
+            },4000)
+        </script>
+    </body>
+    
+
+{% endblock %}

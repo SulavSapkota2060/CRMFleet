@@ -1,0 +1,124 @@
+{% extends 'TMSTruck/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<style>
+  th{
+    font-weight: 500;
+  }
+  #all{
+      display: grid;
+      grid-template-columns: 1fr 1fr ;
+      grid-gap: 20px;
+  }
+  h6{
+    font-family: Roboto;
+    font-weight: 400;
+  }
+  #head{
+      font-family: 'Courier New', Courier, monospace ;
+  }
+</style>
+<div class="main-body">
+    {% if group == 'Accounting' %}
+    {% include 'TMSTruck/navbars/accounting_navbar.html' %}
+
+    {% elif group == 'Admin' %}
+    {% include 'TMSTruck/navbars/admin_navbar.html' %}
+
+    {% elif group == 'Hiring Manager' %}
+    {% include 'TMSTruck/navbars/hiring_manager_navbar.html' %}
+
+    {% elif group == 'Logistics Manager' %}
+    {% include 'TMSTruck/navbars/logistics_manager.html' %}
+
+    {% endif %}
+    <hr>
+    <div>
+        <h3 id="head" align="center">Load Number: {{load.load_number}}</h3>
+        <div  id="all" class="card-body">
+
+            <div class="card">
+                <div class="card-header">
+                    Broker's Information
+                </div>
+                <div class="card-body">
+                    <h6>Brokerage Name: {{load.brokerage_name}}</h6>
+                    <h6>Broker Name: {{load.broker_name}}</h6>
+                    <h6>Broker Email: {{load.broker_email}}</h6>
+                    <h6>Broker Phone: {{load.broker_phone}}</h6>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    General:
+                </div>
+                <div class="card-body">
+                    <h6>Driver: {{load.assignToCarrier.firstName}} {{load.assignToCarrier.lastName}}</h6>
+                    <h6>Distance: {{load.distance}} miles</h6>
+                    <h6>Weight: {{load.weight}} lbs</h6>
+                    <h6>Rate: ${{load.rate}}</h6>
+                    <h6>Stops: {{load.stops}}</h6>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Dates:
+                </div>
+                <div class="card-body">
+                    <h6>Assigned Date: {{load.assigned_date}}</h6><br>
+                    <h6>Pickup Date: {{load.pickupDate}}</h6><br>
+                    <h6>DropOff Date: {{load.dropOffDate}}</h6><br>
+                    <h6>Drop Off Addresses:</h6>
+                    
+                        <ul class="list-group">
+                        {% for i in address %} 
+                        <li class="list-group-item"> {{i}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+              
+
+            </div>
+
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        Other:
+                    </div>
+                    <div class="card-body">
+                        <h6>Load Number: {{load.load_number}}</h6>
+                        <h6>First Available Pickup:{{load.first_available_pickup}}</h6>
+                        
+                    </div>
+                </div>
+              
+                <br>
+                <div class="card">
+                    <div class="card-header">
+                        Files:
+                    </div>
+                    <div class="card-body">
+                        <h6><a href="{{load.rate_confirmation}}">Rate Confirmation</a></h6>
+                        <h6><a href="{{load.bill_of_landing}}">Landing Bill</a></h6>
+                    </div>
+                    <hr>
+                    <div class="card-body">
+                        <center>
+                        <a href="{% url 'mark_completed' load.id %}"> <button class="btn btn-success btn-lg">Mark Completed</button></a>
+                        <a href="{% url 'mark_paid' load.id %}"> <button class="btn btn-info btn-lg">Mark Paid</button></a>
+                    </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <center>
+   </center> 
+</div>
+
+{% endblock %}

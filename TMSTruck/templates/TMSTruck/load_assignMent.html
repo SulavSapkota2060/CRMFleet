@@ -1,0 +1,162 @@
+{% extends 'TMSTruck/base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <style>
+        .input-group {
+            display: flex;
+            grid-gap: 40px;
+        }
+    
+        #dropdown{
+            padding:20px;
+            display: none;
+            position: absolute;
+            background-color: white;
+            width: 100%;
+            z-index: 2;
+            border: 1px solid #ccc;
+            box-shadow: 5px 5px 5px #ccc ;
+            height: 13rem;
+            overflow-y: scroll;
+        }
+        #dropdown:nth-child(odd){
+            cursor: pointer;
+            
+        }
+       
+    </style>
+</head>
+
+<body>
+    
+    <div class="main-body">
+        
+        {% if group == 'Accounting' %}
+        {% include 'TMSTruck/navbars/accounting_navbar.html' %}
+
+        {% elif group == 'Admin' %}
+        {% include 'TMSTruck/navbars/admin_navbar.html' %}
+
+        {% elif group == 'Hiring Manager' %}
+        {% include 'TMSTruck/navbars/hiring_manager_navbar.html' %}
+
+        {% elif group == 'Logistics Manager' %}
+        {% include 'TMSTruck/navbars/logistics_manager.html' %}
+
+        {% endif %}        <hr>
+        <form autocomplete="off" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div  class="input-group">
+                {{form.brokerage_name | as_crispy_field}}
+                {{form.broker_name | as_crispy_field}}
+           
+            </div>
+            <div class="input-group">
+                {{form.broker_phone | as_crispy_field}}
+                {{form.broker_email | as_crispy_field}}
+                {{form.broker_address | as_crispy_field}}
+
+            </div>
+            <select style="display: none;"  name="" id="associatedUser">
+                {% for i in carrier %}
+                <option>{{i}}</option>
+               {% endfor %}
+            </select>
+            
+           <div style="display: none;">{{form.assignToCarrier | as_crispy_field }}</div> 
+           
+           
+           
+            <div class="input-group">
+                <div id="pickupDateField">
+                    <label for="pickupDate">Pickup Date*</label>   
+                    <input type="date" name="pickupDate" id="pickupDate" class="form-control">
+                </div>
+                {{form.pickupAddress | as_crispy_field}}
+
+            </div>
+            
+            <div class="input-group">
+  
+                {{form.distance | as_crispy_field}}
+                {{form.weight | as_crispy_field}}
+                {{form.rate | as_crispy_field}}
+               
+                {{form.load_number  | as_crispy_field}}
+            </div>
+          
+
+
+            <div class="input-group">
+  <div style="position: relative;">
+                <label for="carrier">Select Carrier</label>
+                <input type="text" name="carrier" id="carrierSearch" class="form-control"
+                    placeholder="Search">
+                <div id="dropdown">
+                </div>
+            </div>
+            </div>
+          
+
+
+            <div class="input-group">
+                <div id="dropOffDate">
+                    <label for="dropOffDate">DropOff Date*</label>   
+                    <input type="date" name="dropOffDate" id="dropOffDate" class="form-control">
+                </div>
+
+                <div style= "display: none;">{{form.dropOffAddress| as_crispy_field}}</div>
+
+
+                <div id="first_available_pickup">
+                    <label for="first_available_pickup">First Avalable Pickup Date*</label>   
+                    <input type="date" name="first_available_pickup" id="first_available_pickup" class="form-control">
+                </div>
+
+            </div>
+            
+
+            {{form.special_comments | as_crispy_field}}
+
+            <div class="input-group">
+
+                {{form.rate_confirmation| as_crispy_field}}
+    
+            </div>
+
+            
+
+
+            <div id="stopArea">
+                {{form.stops | as_crispy_field}}
+                <h5>DropOff Addresses</h5>
+                <div id="stop-input">
+                    
+                </div>
+                <button class="btn btn-outline-info btn-block mt-5 mb-5" onclick="toJSON()">Send To Carrier</button>
+            </div>
+        </form>
+   
+    </div>
+
+
+    <script src="{% static 'js/AssignLoad/filterDropDown.js' %}"></script>
+    <script src="{% static 'js/AssignLoad/assignScript.js' %}"></script>
+</body>
+
+</html>
+
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'TMSTruck/base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+<style>
+    body{
+        overflow-x: hidden;
+    }
+    #form-group{
+        display: flex;
+        grid-gap: 10px;
+
+    }
+    .form{
+        margin-left: 35%;
+        position: relative;
+        z-index: 1;
+        background-color: white;
+        padding: 20px;
+        border-radius: 20px;
+        height: 50vh;
+        width: 30%;
+        margin-top: 10% ;
+    }
+
+
+</style>
+
+    <body background="{% static 'images/landing_page.jpg' %}">
+        <div class="row">
+            <div class="col-md-10 mx-auto mt-3">
+                <div class="form">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <h2 align="center">Login</h2>
+                                <hr>
+                                Username:
+                                <input type="text" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                               
+                                <br> 
+                                Password:<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                               <center> <input type="submit" value="Login" class="btn btn-success mt-5"></center>   
+                        
+                        </div>
+                    </div>
+                    
+                                    </div>
+                                </div>
+            </form>
+        </div>
+            </div>
+        </div>
+        
+    </body>
+    
+
+{% endblock %}

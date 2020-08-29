@@ -1,0 +1,29 @@
+{% extends 'TMSTruck/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<div class="header mt-3">
+    <div class="topic">
+        <h1 class="display-4">FleetTMS</h1>
+    </div>
+    <div class="navs">
+        <ul>
+
+
+            <li><a href = "{% url 'dashboard' %}">Dashboard</a></li>
+            <li><a  href = "{% url 'assign_load' %}"><i class="fa fa-plus"></i> Assign Load</a></li>
+            <li><a  href = "{% url 'complete_load' %}"><i class="fa fa-check"></i>Complete Load</a></li>
+            <li><a href = "{% url 'all_carrier' %}"><i class="fas fa-truck"></i> Carrier</a></li>
+            <li><a href = "{% url 'training_center' %}">Training Center</a></li>
+            <li><a  href = "{% url 'add_user' %}">Add User</a> </li>
+            <li><a href="{% url 'all_loads' %}">All Loads</a></li>
+            <li><a  href = "{% url 'all_invoice' %}"><i class="fas fa-file-invoice-dollar"></i> Invoicing</a></li>
+            <li><a  href = "{% url 'user_info' %}"><i class="fa fa-user"></i> User</a></li>
+            <li><a href = "{% url 'logout' %}" ><button class="btn btn-danger">Log Out</button></a></li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

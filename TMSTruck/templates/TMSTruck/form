@@ -1,0 +1,113 @@
+<div class="row">
+<div class="col-md-5">
+    
+                <div id="form-group" class="name">
+                    <div>{{form.username}}</div>
+                    <div>{{form.firstName}}</div>
+                    <div>{{form.lastName}}</div>
+                </div>
+                <div id="form-group" class="email">
+                    <div>{{form.emailAddress}}</div>
+                    <div>{{form.Phone}}</div>
+                </div>
+                <div " id="form-group" class="address">
+                    <div>{{form.address}}</div>
+                    
+                </div>
+                <div id="form-group" class="detail">
+                    <div>{{form.city}}</div>
+                    <div>{{form.state}}</div>
+                    <div>{{form.zipCode}}</div>
+                </div>
+                <div class="enrolled">
+                    <div id="form-group">
+                        {{form.enrolledCarriers }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="status">
+                    <div>{{form.userStatus }}</div><br>
+                    <div>{{form.userRole }}</div>
+                </div>
+                <div class="upload mt-5">
+                    <div>{{form.ndaNca }}</div>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-dark mt-5">
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+        --------------------------------------------------------
+
+
+
+          <div class="row">
+                        <div class="col-md-5">
+                            
+                                        <div id="form-group" class="name">
+                                            <div>{{form.username | as_crispy_field  }}</div>
+                                            <div>{{form.firstName | as_crispy_field }}</div>
+                                            <div>{{form.lastName | as_crispy_field }}</div>
+                                        </div>
+                                        <div id="form-group" class="email">
+                                            <div>{{form.email| as_crispy_field  }}</div>
+                                            <div>{{form.Phone | as_crispy_field }}</div>
+                                        </div>
+                                        <div " id="form-group" class="address">
+                                            <div>{{form.address | as_crispy_field }}</div>
+                                            
+                                        </div>
+                                        <div id="form-group" class="detail">
+                                            <div>{{form.city | as_crispy_field }}</div>
+                                            <div>{{form.state | as_crispy_field }}</div>
+                                            <div>{{form.zipCode | as_crispy_field }}</div>
+                                        </div>
+                                        <div class="enrolled">
+                                            <div id="form-group">
+                                                {{form.enrolledCarriers| as_crispy_field  }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="status">
+                                            <div>{{form.userStatus| as_crispy_field  }}</div><br>
+                                            <div>{{form.userRole | as_crispy_field  }}</div>
+                                        </div>
+                                        <div class="upload mt-5">
+                                            <div>{{form.ndaNca | as_crispy_field  }}</div>
+                                        </div>
+
+
+
+                                        class Equipment(models.Model):
+	user 					= models.ForeignKey(Account, on_delete=models.CASCADE)
+	type 					= models.CharField(max_length=100,null=True)
+	truck_number 			= models.IntegerField(null=True)
+	size					= models.IntegerField(null=True)
+	max_weight				= models.IntegerField(null=True)
+	license_plate_number	= models.CharField(max_length=200,null=True)
+
+
+	def __str__(self):
+		return self.type
+
+
+
+
+
+
+        			url = settings.ATTACHMENT_URL
+			newPath = url.replace(os.sep, '/')
+			file1 = "{}/{}".format(newPath,a.bill_of_landing)
+			file2 = "{}/{}".format(newPath,a.rate_confirmation)
+			x = open(file1,"r")
+			y = open(file2,"r")
+			print(x,y)

@@ -1,0 +1,72 @@
+{% extends 'TMSTruck/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+
+<body>
+    <div class="main-body">
+        {% include 'TMSTruck/user_navbar.html' %}
+        <hr>
+
+        <hr>
+        <div class="row">
+            <div class="col-md-5 mx-auto">
+                <div class="card">
+                    <h1>Add Equipment</h1>
+                    <button class="btn btn-outline-dark"><a href="{% url 'add_equipment' %}">Add</a></button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                
+                <div class="card">
+                    <div class="card-header">All Equipments</div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Truck Number</th>
+                                    <th scope="col">Size</th>
+                                    <th scope="col">Max Weight</th>
+                                    <th scope="col">License Plate Number</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for equipment in equipments %}
+                                <tr>
+                                    <th scope="row">{{equipment.id}}</th>
+                                    <td>{{equipment.type}}</a></td>
+                                    <td>{{equipment.truck_number}}</td>
+                                    <td>{{equipment.size}}</td>
+                                    <td>{{equipment.max_weight}}</td>
+                                    <td>{{equipment.license_plate_number}}</td>
+                                    <td class="btn btn-danger"><a href="{% url 'remove_equipment' equipment.id  %}">Remove</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</body>
+
+</html>
+
+{% endblock %}

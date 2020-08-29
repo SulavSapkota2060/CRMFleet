@@ -1,0 +1,132 @@
+{% extends 'TMSTruck/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <style>
+        table{
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-body">
+        {% if group == 'Accounting' %}
+        {% include 'TMSTruck/navbars/accounting_navbar.html' %}
+
+        {% elif group == 'Admin' %}
+        {% include 'TMSTruck/navbars/admin_navbar.html' %}
+
+        {% elif group == 'Hiring Manager' %}
+        {% include 'TMSTruck/navbars/hiring_manager_navbar.html' %}
+
+        {% elif group == 'Logistics Manager' %}
+        {% include 'TMSTruck/navbars/logistics_manager.html' %}
+
+        {% endif %}<br><br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">To Send Signed Rate of Confirmation <i style="float: right;" title="This is the list of loads whose signed rate of confirmation is received but not sent to the broker." class="fa fa-info-circle" aria-hidden="true"></i></div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Load Number </th>
+                                    <th scope="col">Brokerage Name</th>
+                                    <th scope="col">Broker Name</th>
+                                    <th scope="col">Carrier</th>
+                                    <th scope="col">Distance</th>
+                                    <th scope="col">Pick Up Date</th>
+                                    <th scope="col">Drop Off Date</th>
+                                    <th scope="col">Rate</th>
+                                    <th scope="col">Details</th>
+
+        
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for loads in awaiting_loads %}
+                                <tr>
+                                    <td><a href="{% url 'load_detail' loads.id %}">{{loads.load_number}}</a></td>
+                                    <td>{{loads.brokerage_name}}</td>
+                                    <td>{{loads.broker_name}}</td>
+                                    <td>{{loads.assignToCarrier}}</td>
+                                    <td>{{loads.distance}}</td>
+                                    <td>{{loads.pickupDate}}</td>
+                                    <td>{{loads.dropOffDate}}</td>
+                                    <td>${{loads.rate}}</td>
+                                    <td> <a href="{% url 'awaiting_load' loads.id %}"><button class="btn btn-outline-info btn-sm">View</button></a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+        <hr>    
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">To send Bill of lading to Carrier <i style="float: right;" title="This is the list of loads whose signed rate of confirmation and bill of lading is already received but the bill of lading is not sent to the carrier." class="fa fa-info-circle" aria-hidden="true"></i></div>
+                    
+
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Load Number</th>
+                                    <th scope="col">Brokerage Name</th>
+                                    <th scope="col">Broker Name</th>
+                                    <th scope="col">Carrier</th>
+                                    <th scope="col">Distance</th>
+                                    <th scope="col">Pick Up Date</th>
+                                    <th scope="col">Drop Off Date</th>
+                                    <th scope="col">Rate</th>
+                                    <th scope="col">Details</th>
+
+        
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for loads in awb %}
+                                <tr>
+                                    <td><a href="{% url 'load_detail' loads.id%}">{{loads.load_number}}</a></td>
+                                    <td>{{loads.brokerage_name}}</td>
+                                    <td>{{loads.broker_name}}</td>
+                                    <td>{{loads.assignToCarrier}}</td>
+                                    <td>{{loads.distance}}</td>
+                                    <td>{{loads.pickupDate}}</td>
+                                    <td>{{loads.dropOffDate}}</td>
+                                    <td>${{loads.rate}}</td>
+                                    <td> <a href="{% url 'awb' loads.id %}"><button class="btn btn-outline-info btn-sm">View</button></a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    </div>
+
+    
+</body>
+
+</html>
+
+{% endblock %}

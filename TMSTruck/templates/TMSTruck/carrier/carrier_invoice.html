@@ -1,0 +1,136 @@
+{% extends 'TMSTruck/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrier Invoice</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <style>
+        table{
+            font-size: 13px;
+            border: 0.2px solid rgb(182, 182, 182);
+            padding: 2px 10px;
+        }body{
+            font-family: Roboto;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-body">
+        {% if group == 'Accounting' %}
+        {% include 'TMSTruck/navbars/accounting_navbar.html' %}
+
+        {% elif group == 'Admin' %}
+        {% include 'TMSTruck/navbars/admin_navbar.html' %}
+
+        {% elif group == 'Hiring Manager' %}
+        {% include 'TMSTruck/navbars/hiring_manager_navbar.html' %}
+
+        {% elif group == 'Logistics Manager' %}
+        {% include 'TMSTruck/navbars/logistics_manager.html' %}
+
+        {% endif %}<br><br>
+      <h1 class="display-4">Carrier Invoice</h1>
+      <hr>
+        <div class="row">
+            <div class="col-md-9">
+                <h6>Logistics Business Manager: </h6>
+                <h6>User Name: {{carrier.user.firstName}} {{carrier.user.lastName}}</h6>
+                <h6>Invoice Created By: {{user.first_name}} {{user.last_name}}</h6>
+            </div>
+            <div class="col">
+                <h6>Invoice Number: #{{carrier.id}}</h6>
+                <h6>Date: {{date}}<h6>
+            </div>
+            <hr>
+            
+            
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <div class="alert alert-success">
+                    <h4>Carrier Information:</h4>
+                    <h6>Full Name: {{carrier.firstName}} {{carrier.lastName}} </h6>
+                    <h6>Phone: {{carrier.phone}} </h6>
+                    <h6>Email: {{carrier.email}} </h6>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                   
+                    <div class="card-body">
+                        <h3  class="card-title">Unpaid Loads</h3><br>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Assigned Date</th>
+                                    <th scope="col">Load Number</th>
+                                    <th scope="col">Origin</th>
+                                    <th scope="col">Destination</th>
+                                    <th scope="col">Miles</th>
+                                    <th scope="col">Weight</th>
+                                    <th scope="col">Stops</th>
+                                    <th scope="col">Rate</th>
+                             
+
+        
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for loads in user_loads %}
+                                <tr>
+                                    <td>{{loads.assigned_date.date}}</td>
+                                    <td><a href="{% url 'load_detail' loads.id %}">{{loads.load_number}}</a></td>
+                                    <td>{{loads.pickupAddress}}</td>
+                                    <td>{{loads.final_address}}</td>
+                                    <td>{{loads.distance}}</td>
+                                    <td>{{loads.weight}} lbs</td>
+                                    <td>{{loads.stops}}</td>
+                                    <td>${{loads.rate}}</td>
+
+
+                                </tr>
+                                {% empty %}
+                                <td colspan="8">NO ITEMS</td>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <br>
+                        <div style="text-align:right;
+                        float: right;
+                         font-family: Roboto;
+                         font-size:15px;
+                         ">Invoice Total: ${{invoice_total}}</div>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+        <br>
+        <div style="display: flex;justify-content: center;grid-gap: 20px;" class="btns mb-5">
+            <a href="{% url 'pdf_invoice' carrier.id %}"><button class="btn btn-warning btn-lg">{{button}}</button></a>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="{{send_email}}" class="btn btn-success btn-lg">
+
+            </form>
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+{% endblock %}

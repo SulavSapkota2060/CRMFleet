@@ -1,0 +1,24 @@
+Hey! {{form.broker_name.value}}
+
+Message From Truck Service
+
+Here's the Carrier's details:
+
+Name: {{carrier.firstName}} {{carrier.lastName}}
+Email : {{carrier.email}}
+
+Other Details:
+
+Pickup Address: {{form.broker_address.value}}
+Pick Up Date: {{form.pickupDate.value}}
+Load Number: {{form.load_number.value}}
+Drop Off Time: {{form.dropOffDate.value}}
+First Available PickUp: {{form.first_availabe_pickup.value}}
+Distance : {{form.distance.value}} miles
+Weight : {{form.weight.value}} lbs
+Rate : ${{form.rate.value}}
+Stops : {{form.stops.value}}
+Addresses :
+    {% for i in address %} 
+    {{i}}
+    {% endfor %}

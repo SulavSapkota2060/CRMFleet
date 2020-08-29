@@ -1,0 +1,121 @@
+{% extends 'TMSTruck/base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <style>
+        table {
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-body">
+        {% if group == 'Accounting' %}
+        {% include 'TMSTruck/navbars/accounting_navbar.html' %}
+
+        {% elif group == 'Admin' %}
+        {% include 'TMSTruck/navbars/admin_navbar.html' %}
+
+        {% elif group == 'Hiring Manager' %}
+        {% include 'TMSTruck/navbars/hiring_manager_navbar.html' %}
+
+        {% elif group == 'Logistics Manager' %}
+        {% include 'TMSTruck/navbars/logistics_manager.html' %}
+
+        {% endif %}
+        <hr><br>
+        <h1 align='center' class="display-4">User Profile</h1>
+<br>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <center>
+                            <img height="300" src="{% static 'images/profile.png' %}" alt=""><br>
+
+
+                            <h4 align='center'>{{account.firstName}} {{account.lastName}}</h4>
+                            <br>
+                            <h6>@: {{user.email}}</h6>
+                            <h6>City: {{account.city}}</h6>
+                            <h6>State: {{account.state}}</h6>
+                        </center>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="group">
+                            <h6>User Status: {{account.userStatus}}</h6>
+                            <h6>Commission Rate: {{account.commissionRate}}%</h6>
+
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="group">
+                            <h6>Address: {{account.address}}</h6>
+                            <h6>Zip Code: {{account.zipCode}}</h6>
+                            <h6>Phone: {{account.Phone}}</h6>
+
+                        </div>
+                    </div>
+
+                </div>
+<hr>
+                <div class="card">
+                    <div class="card-body">
+                       <a href="{% url 'change_password' %}"><button class="btn btn-outline-warning btn-lg">Change Password</button></a> 
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="group">
+                            <h6>Enrolled Carriers: {{account.enrolledCarriers}}</h6>
+                            <h6></h6>
+
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="group">
+                            <h6>NdaNca: <a href="{{account.ndaNca}}">View</a></h6>
+                            <h6>w9: <a href="{{account.w9_upload}}">View</a></h6>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+{% endblock %}

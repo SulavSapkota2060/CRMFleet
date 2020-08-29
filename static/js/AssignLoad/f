@@ -1,0 +1,252 @@
+{
+    question_string: "What do you say when they're on the load board and they say ready?",
+    choices: {
+      correct: "I got 1,2,3,4,5,6,7,8,9,10,11,12, how many do you have?",
+      wrong: ["I got 1,2,3,4,5,6, how many do you have?",
+      "I got 1,2,3,4,5,6,7,8, how many do you have?",
+      "I got 1,2,3,4,5,6,7,8,9,10,11,12,13,14, how many do you have?"
+      ]
+    }
+  }
+  , {
+    question_string: 'When they say have None, what do you say?',
+    choices: {
+      correct: "Exactly, We can find high paying freight faster than anyone else on the planet",
+      wrong: [" Exactly, I can’t legally do anything for you without an agreement",
+      'Exactly, we specialize in only high paying freight',
+      'Exactly, this is not a contract, it is not',
+      ]
+    }
+  }
+  , {
+    question_string: 'What documents do you have to have ready to send to the driver?',
+    choices: {
+      correct: "Email, (LSA) Logistics Service Agreement and Profile Form",
+      wrong: ['Load rate confirmation sheet',
+        '(LSA) Logistics Service Agreement and carrier Invoicing sheet',
+        'Signed (BOL) Bill of Lading']
+    }
+  }
+
+  , {
+    question_string: 'What is Our Motto?',
+    choices: {
+      correct: "When you see our Phone number on your Caller I.D. You will know without a shadow of a doubt that we have the kind of LOADS that you want. Going to the PLACES that you want to go. Paying you the kind of $$$$ MONEY $$$$ that you want to get paid!!!",
+      wrong: ["Motto1",
+    "Motto2",
+  "Motto3"]
+    }
+  }
+  , {
+    question_string: 'What to say when they ask how much is it or does it cost?',
+    choices: {
+      correct: "Our fee is 10% of the load but before you say oh wow that's to high",
+      wrong: [" Well, it’s only 10%",
+      "It’s only 10% of the load",
+      
+      "Our fee is 10%"]
+    }
+  }
+  , {
+    question_string: 'They return the documents to you, what do you check?',
+    choices: {
+      correct: "LSA, Profile form, MC Authority, (COI) Certificate of Insurance, W-9",
+      wrong: ["LSA, Profile form",
+        "LSA, Profile form, MC Authority, Carrier Invoicing, (COI) Certificate of Insurance",
+        "LSA, Profile form, MC Authority, (COI) Certificate of Insurance, Load Rate Confirmation"]
+    }
+  }
+  , {
+    question_string: 'How do we find drivers?',
+    choices: {
+      correct: "Trucker Path, Quick Transport",
+      wrong: [" Direct Freight",
+      "Trucker Path, Safer Watch",
+      "FMCSA"]
+    }
+  }
+  , {
+    question_string: 'What is the first thing a Broker asks you for?',
+    choices: {
+      correct: "MC Number/ DOT Number",
+      wrong: ["Carrier Packet",
+      
+      "LSA, Profile Form",
+      "Size of their Trailer"]
+    }
+
+    
+  }
+
+  , {
+    question_string: 'What are two possibilities that a broker may tell you?',
+    choices: {
+      correct: "Carrier Needs Carrier Packet or that carrier is good to go",
+      wrong: ["Carrier Needs a Carrier Packet and (COI) Certificate of Insurance",
+        "Carrier Needs a Profile Form, Carrier Packet",
+        "That carrier is good to go, W-9 form"]
+    } 
+  }
+
+  , {
+    question_string: 'Once a broker clears a driver, what will they send you?',
+    choices: {
+      correct: "Load Rate Confirmation",
+      wrong: [ "Carrier packet",
+        "(BOL) Bill of Lading",
+        "Driver/ Broker Agreement"]
+    } 
+  }
+
+  , {
+    question_string: 'When you receive the Load Rate Confirmation, what do you do?',
+    choices: {
+      correct: "READ, READ, READ before sending to your driver",
+      wrong: ["Immediately send it to your driver",
+        "Call your driver and go over it with them",
+        "Send it back to the broker",
+       ]
+    } 
+  }
+
+  , {
+    question_string: 'If there are any discrepancies on Load Rate Confirmation, what do you do?',
+    choices: {
+      correct: "Call the broker and find out why?",
+      wrong: [' Call your driver',
+      'Send it to your driver to approve it',
+      'Call the shipper and check on the load']
+    } 
+  }
+
+  , {
+    question_string: 'Once the load is booked, what should you receive?',
+    choices: {
+      correct: "(BOL) Bill of Lading",
+      wrong: ['Sign Load Rate Confirmation',
+        'The directions to the shipper',
+        'The appointment time to pick up the load']
+    } 
+  }
+
+  , {
+    question_string: 'After the load is delivered, what should you receive?',
+    choices: {
+      correct: " Signed (BOL) Bill of Lading",
+      wrong: [ 'Load Rate Confirmation',
+        '(LSA) Logistics Service Agreement',
+        'Carrier Packet']
+    } 
+  }
+
+  , {
+    question_string: 'What should be included in your Carrier Invoicing?',
+    choices: {
+      correct: "Signed (BOL) Bill of Lading, Signed Load Rate Confirmation, (LSA) Logistics Service Agreement, Driver/Broker Agreement, if there is one.",
+      wrong: ['How much the load paid',
+        'Signed (BOL) Bill of Lading, Load Rate Confirmation',
+        'Load Rate Confirmation, Carrier Packet, (BOL) Bill of Lading']
+    } 
+  }
+
+  , {
+    question_string: 'How do we find loads?',
+    choices: {
+      correct: "Load Boards",
+      wrong: ['Word of mouth works best',
+        
+        'Quick Transport',
+        'Brokers']
+    } 
+  }
+
+  , {
+    question_string: 'What recourse do we have if the driver refuses to pay us?',
+    choices: {
+      correct:  "Complaint to NCCD of the FMCSA",
+      wrong: [ "Just have to write it off as a loss",
+      
+        "Contact the shipper",
+        "Contact the broker"]
+    } 
+  }
+
+  , {
+    question_string: 'How do we find out if the carrier has been paid?',
+    choices: {
+      correct: "Call the broker 1 or 2 days after the load had has been delivered",
+      wrong: ['Call the broker as soon as the load has been delivered',
+        'Call the receiver',
+        'Call the shipper']
+    } 
+  }
+
+  , {
+    question_string: 'What do we say if they say No, I am not looking for a load?',
+    choices: {
+      correct: "Oh, you already have one",
+      wrong: ["Ok, sorry to bother you.",
+      
+      "Here’s my number call me next time you are looking for one.",
+      "Alright, I can’t help you then."]
+    } 
+  }
+
+  , {
+    question_string: 'What if they say No, I am not on the load board?',
+    choices: {
+      correct: "Ok, no problem, where are you at?",
+      wrong: [
+       ' Ok, call me when you are on the load board.',
+        'I got a whole bunch of loads, too bad.',
+        'I see that you are on the load board.']
+    } 
+  }
+
+  , {
+    question_string: 'How many times do we do a follow-up?',
+    choices: {
+      correct: "1",
+      wrong: [
+        '2',
+       ' 3 at most',
+        'As many as it takes']
+    } 
+  }
+  , {
+    question_string: 'When they agree to have you send the agreement, what do you do?',
+    choices: {
+      correct: "Hit send as you’re talking to them.",
+      wrong: [ 'Make note and continue making calls.',
+        'Open your email and attach the documents and send.',
+        
+        'Send it the next day, first thing in the morning.']
+    } 
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  function showDropdown() {
+    console.log("HI")
+    const drop = document.getElementById("dropdown");
+    const select = document.getElementById("associatedUser");
+    drop.innerHTML = ''
+    for (i = 0; i < select.length; i++) {
+        const text = select[i].textContent
+        let tag = `<div onclick=showText("${text}") id="dropdown-item"><h6 id="drop">${text}</h6><hr></div>`
+        drop.innerHTML += tag;
+    }
+    drop.style.display = "block";
+
+}

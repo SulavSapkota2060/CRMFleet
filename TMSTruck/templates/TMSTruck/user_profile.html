@@ -1,0 +1,46 @@
+{% extends 'TMSTruck/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+
+<body>
+    <div class="main-body">
+
+        {% if group == 'Trainee' %}
+        {% include 'TMSTruck/navbars/trainee_navbar.html' %}
+
+        {% elif group == 'Accounting' %}
+        {% include 'TMSTruck/navbar.html' %}
+
+        {% elif group == 'Admin' %}
+        {% include 'TMSTruck/navbar.html' %}
+
+        {% elif group == 'Hiring Manager' %}
+        {% include 'TMSTruck/navbar.html' %}
+
+        {% elif group == 'Logistics Manager' %}
+        {% include 'TMSTruck/navbar/logistics_manager_navbar.html' %}
+        
+        {% endif %}
+
+        <hr>
+        <h4 align="center">Welcome! {{account.firstName}} {{account.lastName}}</h4>
+<br>
+        <h5>Please Train Yourself and Pass the test to be promoted as a Logistics Manager.</h5>
+
+    </div>
+</body>
+
+</html>
+
+{% endblock %}

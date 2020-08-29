@@ -1,0 +1,69 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+*{
+	margin: 0px;
+
+}
+body{
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+
+body::after{
+
+	content: ' ';
+	background-color: #000;
+	/*background-image: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%);*/
+	background-size:cover;
+	background-repeat:no-repeat;	
+	position:absolute;
+	top:0px;
+	left: 0px;
+	height: 100vh;
+	width: 100%;
+	opacity: 0.7;
+  box-shadow:20px 20px 50px 10px #000 inset;  
+}
+
+.main{
+	position: relative;
+	z-index: 1;
+	color: white;
+	padding: 20px;
+	top: 13rem;
+}
+h1{
+	font-size: 70px;
+	font-family: 'Roboto', sans-serif;
+	text-align: center;
+
+}
+h2{
+	font-size: 40px;
+	text-align: center;
+}
+
+h1,h2{
+	animation-name: slide;
+	animation-timing-function: linear;
+	left: -20px;
+}
+
+
+.myBtn{
+	padding: 20px;
+	border-radius: 25px;
+	color: white;
+	background : linear-gradient(to left,purple,red);
+	border:none;
+	font-weight: 600;
+	width: 10%;
+	margin:20px 5px;
+}
+.myBtn:hover{
+	background: black;
+	color: white;
+	font-weight: 700;
+	transition: 0.3s;
+	transform: scale(1.1) ;
+}

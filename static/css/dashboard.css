@@ -1,0 +1,34 @@
+.header{
+    position: relative;
+    display: flex;
+}
+
+
+ul {
+    list-style: none;
+    display: flex;
+    grid-gap: 20px;
+
+}
+
+li {
+    font-weight: 500;
+
+}
+
+.navs {
+    position: absolute;
+    right: 1px;
+    top: 40%;
+    
+}
+
+a{
+    text-decoration: none;
+    color:#000;
+}
+a:hover{
+    text-decoration: underline;
+    text-decoration-color: #000000;
+    color:black;
+}

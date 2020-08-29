@@ -1,0 +1,57 @@
+{% extends 'TMSTruck/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+
+<body>
+    <div class="main-body">
+        {% include 'TMSTruck/navbar.html' %}
+        <hr>
+
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">All Users</div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for worker in workers %}
+                                <tr>
+                                    <th scope="row">{{worker.id}}</th>
+                                    <td><a href="{% url 'user_detail' worker.id %}">{{worker.firstName}} {{worker.lastName}}</a></td>
+                                    <td>{{worker.Phone}}</td>
+                                    <td>{{worker.address}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</body>
+
+</html>
+
+{% endblock %}

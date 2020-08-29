@@ -1,0 +1,37 @@
+{% extends 'TMSTruck/base.html' %}
+
+{% load static %}
+
+
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+<style>
+
+a{
+	text-decoration:none;
+	color:white
+}
+</style>
+
+
+<body background="{% static 'images/landing_page.jpg' %}">
+	
+	<div class="main">
+		<div class="text">
+			<h1>TRADING MADE EASY</h1>
+		</div>
+		<div class="buttons">
+			<center><a href = "{% url 'login' %}"><button class="myBtn">Login</button></a>
+
+			</center>
+		</div>
+	</div>
+</body>
+
+
+
+{% endblock %}

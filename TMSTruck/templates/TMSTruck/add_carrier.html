@@ -1,0 +1,82 @@
+{% extends 'TMSTruck/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<style>
+    .input-group{
+        display: flex;
+        grid-gap: 20px;
+    }
+</style>
+</head>
+
+<body>
+    <div class="main-body">
+        {% if group == 'Accounting' %}
+        {% include 'TMSTruck/navbars/accounting_navbar.html' %}
+
+        {% elif group == 'Admin' %}
+        {% include 'TMSTruck/navbars/admin_navbar.html' %}
+
+        {% elif group == 'Hiring Manager' %}
+        {% include 'TMSTruck/navbars/hiring_manager_navbar.html' %}
+
+        {% elif group == 'Logistics Manager' %}
+        {% include 'TMSTruck/navbars/logistics_manager.html' %}
+
+        {% endif %}        <br><br>
+        <form action="" method="POST", enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="input-group">
+                {{form.firstName | as_crispy_field}}
+                {{form.lastName | as_crispy_field}}
+               
+            </div>
+            <div class="input-group">
+                {{form.email | as_crispy_field}}
+                {{form.phone | as_crispy_field}}
+            </div>
+            <div class="input-group">
+                {{form.company | as_crispy_field}}
+                {{form.mc_number | as_crispy_field}}
+            </div>
+
+            <div class="input-group">
+                {{form.dot_number | as_crispy_field}}
+                {{form.factoring_phone | as_crispy_field}}
+            </div>
+
+            <div class="input-group">
+                {{form.carrier_status | as_crispy_field}}
+                {{form.factoring_company | as_crispy_field}}
+            </div>
+            <div class="input-group">
+                {{form.costPerMile | as_crispy_field}}
+                {{form.mc_upload | as_crispy_field}}
+            </div>
+            <div class="input-group">
+                {{form.willing_states | as_crispy_field}}
+            </div>
+            <input type="submit" class="btn btn-outline-info btn-block" value="Add Carrier">
+        </form>
+    </div>
+ <script>
+ </script>
+</body>
+
+</html>
+
+{% endblock %}

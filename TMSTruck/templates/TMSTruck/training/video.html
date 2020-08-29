@@ -1,0 +1,48 @@
+{% extends 'TMSTruck/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+
+<body>
+   <div class="main-body">
+    {% if group == 'Accounting' %}
+    {% include 'TMSTruck/navbars/accounting_navbar.html' %}
+
+    {% elif group == 'Trainee' %}
+    {% include 'TMSTruck/navbars/trainee_navbar.html' %}
+
+    {% elif group == 'Admin' %}
+    {% include 'TMSTruck/navbars/admin_navbar.html' %}
+
+    {% elif group == 'Hiring Manager' %}
+    {% include 'TMSTruck/navbars/hiring_manager_navbar.html' %}
+
+    {% elif group == 'Logistics Manager' %}
+    {% include 'TMSTruck/navbars/logistics_manager.html' %}
+
+    {% endif %}        
+    <hr>
+<center>
+    <iframe width="900" height="505" src="https://www.youtube.com/embed/4dcl6iYxQlI?autoplay=0" frameborder="3" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
+
+    <a href="{% url 'quiz' %}"><button class="mb-5 mt-3 btn btn-outline-success btn-block">Ready For Test?</button></a>
+
+</div>
+ 
+</body>
+
+</html>
+
+{% endblock %}

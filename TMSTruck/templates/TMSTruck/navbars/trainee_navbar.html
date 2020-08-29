@@ -1,0 +1,19 @@
+{% extends 'TMSTruck/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<div class="header mt-3">
+    <div class="topic">
+        <h1 class="display-4">FleetTMS</h1>
+    </div>
+    <div class="navs">
+        <ul>
+            <li><a href = "{% url 'training_center' %}">Training Center</a></li>
+            <li><a href = "{% url 'logout' %}" ><button class="btn btn-danger">Log Out</button></a></li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

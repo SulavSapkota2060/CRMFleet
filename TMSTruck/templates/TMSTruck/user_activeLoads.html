@@ -1,0 +1,66 @@
+{% extends 'TMSTruck/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+
+<body>
+    <div class="main-body">
+        {% include 'TMSTruck/user_navbar.html' %}
+        <hr>
+
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">All Users</div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Brokerage Name</th>
+                                    <th scope="col">Broker Name</th>
+                                    <th scope="col">Broker Email </th>
+                                    <th scope="col">Rate ($)</th>
+                                    <th scope="col">Stops</th>
+                                    <th scope="col">Drop Off Time</th>
+                                    <th scope="col">View Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for load in active_loads %}
+                                <tr>
+                                    <td>{{load.id}}</td>
+                                    <td>{{load.brokerage_name}}</td>
+                                    <td>{{load.broker_name}}</td>
+                                    <td>{{load.broker_email}}</td>
+                                    <td>{{load.rate}}</td>
+                                    <td>{{load.stops}}</td>
+                                    <td>{{load.dropOffTime}}</td>
+                                    <td><button class="btn btn-outline-dark"><a href="{% url 'load_detail' load.id %}">View Details</a></button></td>
+                                   
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</body>
+
+</html>
+
+{% endblock %}

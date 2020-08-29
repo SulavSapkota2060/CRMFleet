@@ -1,0 +1,153 @@
+{% extends 'TMSTruck/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<style>
+  th{
+    font-weight: 500;
+  }
+</style>
+<div class="main-body">
+  {% include 'TMSTruck/user_navbar.html' %}
+
+    <div class="head">
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mt-4">
+                <div class="card-body">
+                   <h5>Full Name: {{user.firstName}} {{user.lastName}}</h5>
+
+                    <h6>Company: {{user.company}}</h6>
+
+                    <h6>Phone: {{user.Phone}}</h6>
+
+                    <h6>Cost/Mile: ${{user.costPerMile}}</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h6>MC Number: {{user.mc_number}}</h6>
+
+                   <h6>DOT Number: {{user.dot_number}}</h6> 
+
+                   <h6>Email: {{user.Email}}</h6> 
+
+                    <h6>Willing States: {{user.willing_states}}</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h6>Carrier Status: {{user.carrier_status}}</h6>
+
+                    <h6>Factoring Company: {{user.factoring_company}}</h6>
+
+                    <h6>Factoring Phone: {{user.factoring_phone}}</h6>
+                    <h6>Address: {{user.address}}</h6>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+<hr>
+<button class="btn btn-outline-dark">Add Truck</button>
+    <div class="row">
+        <div class="col mx-auto">
+          <h2>Availabe Trucks</h2>
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Truck Number</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Max Weight</th>
+                    <th scope="col">License Plate Number</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for truck in trucks %}
+                  <tr>
+                    <th scope="row">{{truck.id}}</th>
+                    <td>{{truck.type}}</td>
+                    <td>{{truck.truck_number}}</td>
+                    <td>{{truck.size}}</td>
+                    <td>{{truck.max_weight}}</td>
+                    <td>{{truck.license_plate_number}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+          <h2>Active Loads</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Load Number</th>
+                <th scope="col">Broker Name</th>
+                <th scope="col">Broker Email</th>
+                <th scope="col">Drop Off Time</th>
+                <th scope="col">Rate Confirmation</th>
+                <th scope="col">Bill of Landing</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for load in active_loads %}
+              <tr>
+                <td>{{load.load_number}}</td>
+                <td>{{load.broker_name}}</td>
+                <td>{{load.broker_email}}</td>
+                <td>{{load.dropOffTime}}</td>
+                <td><a href="{{load.rate_confirmation}}"><i class="fa fa-eye"></i></a></td>
+                <td><a href="{{load.bill_of_landing}}"><i class="fa fa-eye"></i></a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mx-auto">
+        <h2>Completed Loads</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Load Number</th>
+              <th scope="col">Broker Name</th>
+              <th scope="col">Broker Email</th>
+              <th scope="col">Drop Off Time</th>
+              <th scope="col">Rate Confirmation</th>
+              <th scope="col">Bill of Landing</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for load in completed_loads %}
+            <tr>
+              <td>{{load.load_number}}</td>
+              <td>{{load.broker_name}}</td>
+              <td>{{load.broker_email}}</td>
+              <td>{{load.dropOffTime}}</td>
+              <td><a href="{{load.rate_confirmation}}"><i class="fa fa-eye"></i></a></td>
+              <td><a href="{{load.bill_of_landing}}"><i class="fa fa-eye"></i></a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+
+{% endblock %}
