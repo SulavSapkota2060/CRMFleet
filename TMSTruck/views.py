@@ -706,7 +706,7 @@ def awaiting_detail(request,pk):
 			AssignLoad.objects.get(id=pk).delete()
 	
 			print("Email Sent")
-			return redirect("awaiting_loads")
+			return redirect("dashboard")
 		else:
 			print("Error")
 			messages.error(request,'Error ')

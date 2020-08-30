@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 def w9UploadFile(instance, filename):
-    return 'Users NDA NCA W9 Files/{0}{1}/w9/{2}'.format(instance.firstName,instance.lastName, filename)
+    return 'Users NDA NCA W9 Files/{0}{1}/{2}'.format(instance.firstName,instance.lastName, filename)
 
 
 class Account(models.Model):
@@ -23,7 +23,7 @@ class Account(models.Model):
 	Phone 					= models.IntegerField(null=True)
 	userStatus 				= models.CharField(max_length=100,choices=choices,default='ACTIVE')
 	enrolledCarriers 		= models.TextField(null=True,max_length=3000)    
-	ndaNca 					= models.FileField(upload_to='Users NDA NCA W9 Files/ndas')
+	ndaNca 					= models.FileField(upload_to=w9UploadFile)
 	w9_upload				= models.FileField(upload_to=w9UploadFile,null=True)
 
 	def __str__(self):
