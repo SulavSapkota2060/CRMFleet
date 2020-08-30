@@ -510,7 +510,7 @@ def add_carrier(request):
 
 
 @login_required(login_url="login")
-@customRoles(allowed_roles=['Admin','Accounting','Hiring Manager', 'Logistics Manager'])
+@customRoles(allowed_roles=['Admin','Accounting','Hiring Manager', 'Logistics Manager','Trainee'])
 def training_center(request):
 	group=request.user.groups.all()[0].name
 	template = 'TMSTruck/training/video.html'
