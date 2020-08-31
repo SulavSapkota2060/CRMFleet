@@ -495,22 +495,29 @@ def all_carrier(request):
 def add_carrier(request):
 	form = CarrierForm()
 	template = 'TMSTruck/add_carrier.html'
+	equipmentForm = EquipmentForm()
 	group = request.user.groups.all()[0].name
 	context = {
 		'form':form,
-		'group':group
+		'group':group,
+		'equipment':equipmentForm
 	}
 	if request.method == 'POST':
 		form = CarrierForm(request.POST, request.FILES)
+		equipmentForm = EquipmentForm(request.POST)
 		a = form.save(commit=False)
 		a.user = Account.objects.get(user=request.user)
 		print(a.user)
-		if form.is_valid():
+		if form.is_valid() and equipmentForm.is_valid():
 			ac = Account.objects.get(user=request.user)
 			a = form.save(commit=False)
+			b = equipmentForm.save(commit=False)
 			ac.enrolledCarriers += '{} {}, '.format(a.firstName,a.lastName)
 			ac.save()
-			form.save()
+			a.save()
+			b.user=a
+			b.save()
+			
 			return redirect("all_carrier")
 		else:
 			return HttpResponse("Invalid Form")

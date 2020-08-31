@@ -62,6 +62,7 @@
             <div class="input-group">
                 {{form.carrier_status | as_crispy_field}}
                 {{form.factoring_company | as_crispy_field}}
+                {{form.factoring_email | as_crispy_field}}
             </div>
             <div class="input-group">
                 {{form.costPerMile | as_crispy_field}}
@@ -75,6 +76,12 @@
             <div class="input-group">
                 {{form.willing_states | as_crispy_field}}
             </div>
+            <br>
+            <h3>Equipment</h3>
+            <div class="input-group">
+                {{equipment | crispy}}
+            </div>
+            <hr>
             <input type="submit" class="btn btn-outline-info btn-block" value="Add Carrier">
         </form>
     </div>
