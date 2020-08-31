@@ -41,6 +41,8 @@ def index(request):
 
 
 #Signup view
+@login_required(login_url='login')
+@customRoles(allowed_roles=['Admin','Accounting','Hiring Manager', 'Logistics Manager'])
 def signup(request):
 	message = ''
 	UserSignupForm = UserRegistrationForm()
