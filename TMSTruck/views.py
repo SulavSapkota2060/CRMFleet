@@ -311,12 +311,13 @@ def user_detail(request,pk):
 def user_info(request):
 	user=request.user
 	account = Account.objects.get(user=request.user)
-
+	carriers = account.enrolledCarriers.split(",")
 	template = 'TMSTruck/user_info.html'
 	context = {
 		'user':user,
 		'account':account,
-		'group':request.user.groups.all()[0].name
+		'group':request.user.groups.all()[0].name,
+		'carriers':carriers
 	}
 	return render(request,template,context)
 
@@ -518,7 +519,7 @@ def add_carrier(request):
 			b.user=a
 			b.save()
 			
-			return redirect("all_carrier")
+			return redirect("user_detail",pk=a.id)
 		else:
 			return HttpResponse("Invalid Form")
 
