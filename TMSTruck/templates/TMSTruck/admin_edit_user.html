@@ -69,6 +69,7 @@
                     </div>
                     <div " id="form-group" class="address">
                         <div>{{form.address | as_crispy_field }}</div>
+                        {{form.userRole | as_crispy_field}}
                         
                     </div>
                     <div id="form-group" class="detail">
@@ -82,7 +83,7 @@
              
                     <div class="enrolled">
                         {{form.userStatus | as_crispy_field}}
-                      
+                        {{form.commissionRate | as_crispy_field}}
                     </div>
            
                     <div class="upload mt-5">

@@ -1075,8 +1075,37 @@ def update_profile(request):
 
 	return render(request,template,context)
 
+@login_required(login_url='login')
+@customRoles(allowed_roles=['Admin','Accounting','Hiring Manager', 'Logistics Manager'])
+def update_user(request,pk):
+	user = Account.objects.get(id=pk)
+	actual_user = User.objects.get(email=user.Email)
+	template= 'TMSTruck/admin_edit_user.html'
+	form  = UserRegistrationForm(instance=user)
+	actual_form = EditUserForm(instance= actual_user)
+	if request.method == 'POST':
+		form= UserRegistrationForm(request.POST,request.FILES,instance=user)
+		actual_form= EditUserForm(request.POST,instance=actual_user)
+		if form.is_valid() and actual_form.is_valid():
+			a= actual_form.save(commit=False)
+			b = form.save(commit=False)
+			group = Group.objects.get(name=b.userRole)
+			a.groups.add(group)
+			form.save()
+			actual_form.save()
+			return redirect("dashboard")
+		else:
+			print("EOR")
+	context = {
+		'form':form,
+		'actual_form':actual_form,
+		'group':request.user.groups.all()[0].name
+	}
 
+	return render(request,template,context)
 
+@login_required(login_url='login')
+@customRoles(allowed_roles=['Admin','Accounting','Hiring Manager', 'Logistics Manager'])
 def signed_bill(request):
 	ac = Account.objects.get(user=request.user)
 	loads = AssignLoad.objects.filter(user=ac,is_sign=False,is_active=True)

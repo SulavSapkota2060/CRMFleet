@@ -44,6 +44,7 @@
                                     <th scope="col"><i class="fa fa-percent"></i>Commission Rate</th>
                                     <th scope="col"> <i class="fa fa-users"></i> Assigned Groups</th>
                                     <th scope="col"> <i class="fa fa-address-book"></i> Address</th>
+                                    <th scope="col">Edit</th>
         
                                 </tr>
                             </thead>
@@ -62,7 +63,7 @@
                                     {% endfor %}
                                     </td>
                                     <td>{{user.address}}</td>
-                                    
+                                    <td><a href="{% url 'edit_user' user.id %}"><button class="btn btn-outline-info btn-sm">Edit</button></a> </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

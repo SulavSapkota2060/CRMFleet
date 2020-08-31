@@ -20,7 +20,7 @@ class Account(models.Model):
 	Email					= models.EmailField(max_length=100,null=True)
 	firstName    			= models.CharField(max_length=100,null=True)
 	lastName 				= models.CharField(max_length=100,null=True)
-	commissionRate 			= models.IntegerField(null=True)
+	commissionRate 			= models.IntegerField(null=True,blank=True)
 	address 				= models.CharField(max_length=100,null=True)
 	city 					= models.CharField(max_length=100,null=True)
 	state 					= models.CharField(max_length=100,null=True)
