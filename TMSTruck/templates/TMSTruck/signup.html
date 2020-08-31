@@ -6,7 +6,7 @@
 {% block content %}
 
 
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 
 <style>
     body{
@@ -29,7 +29,22 @@
 
 
 </style>
-    <body background="{% static 'images/landing_page.jpg' %}">
+    <body>
+    	 <div class="main-body">
+    	 	{% if group == 'Accounting' %}
+    {% include 'TMSTruck/navbars/accounting_navbar.html' %}
+
+    {% elif group == 'Admin' %}
+    {% include 'TMSTruck/navbars/admin_navbar.html' %}
+
+    {% elif group == 'Hiring Manager' %}
+    {% include 'TMSTruck/navbars/hiring_manager_navbar.html' %}
+
+    {% elif group == 'Logistics Manager' %}
+    {% include 'TMSTruck/navbars/logistics_manager.html' %}
+
+    {% endif %}
+
         <div class="row">
             <div class="col-md-10 mx-auto mt-3">
                 <div class="form">
@@ -67,6 +82,7 @@
                     <div class="enrolled">
                         {{form.userStatus | as_crispy_field}}
                         {{form.commissionRate | as_crispy_field}}
+                        {{form.userRole | as_crispy_field}}
                         <div id="form-group">
                             {{form.enrolledCarriers| as_crispy_field  }}
                         </div>
@@ -84,6 +100,7 @@
         </div>
             </div>
         </div>
+    	 </div>
    
         <script>
             setTimeout(function(){

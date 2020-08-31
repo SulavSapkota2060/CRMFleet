@@ -12,6 +12,11 @@ def w9UploadFile(instance, filename):
 class Account(models.Model):
 	user 					= models.OneToOneField(User, on_delete=models.CASCADE)
 	choices 				= [('ACTIVE','ACTIVE'),('INACTIVE','INACTIVE')]
+	roleChoice				= [('Trainee','Trainee'),
+								('Logistics Manager','Logistics Manager'),
+								('Accounting','Accounting'),
+								('Hiring Manager','Hiring Manager'),
+								('Admin','Admin')]
 	Email					= models.EmailField(max_length=100,null=True)
 	firstName    			= models.CharField(max_length=100,null=True)
 	lastName 				= models.CharField(max_length=100,null=True)
@@ -22,7 +27,8 @@ class Account(models.Model):
 	zipCode 				= models.IntegerField(null=True)
 	Phone 					= models.IntegerField(null=True)
 	userStatus 				= models.CharField(max_length=100,choices=choices,default='ACTIVE')
-	enrolledCarriers 		= models.TextField(null=True,max_length=3000)    
+	enrolledCarriers 		= models.TextField(null=True,max_length=3000)  
+	userRole				= models.CharField(null=True,max_length=100,choices=roleChoice,default='Trainee')  
 	ndaNca 					= models.FileField(upload_to=w9UploadFile)
 	w9_upload				= models.FileField(upload_to=w9UploadFile,null=True)
 

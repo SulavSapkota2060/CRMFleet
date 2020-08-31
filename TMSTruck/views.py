@@ -54,7 +54,7 @@ def signup(request):
 			profile = UserSignupForm.save(commit=False)
 			form.first_name = profile.firstName
 			form.last_name = profile.lastName
-			group = Group.objects.get(name='Trainee')
+			group = Group.objects.get(name=profile.userRole)
 			form.groups.add(group) 
 			
 			template = render_to_string('TMSTruck/email_templates/register_template.html',{'firstname':profile.firstName,'lastname':profile.lastName,'form':form,'username':form.username,'password':form.password})			
@@ -85,7 +85,8 @@ def signup(request):
 	context= {
 		"actual_form": createUser,
 		"form":UserSignupForm,
-		'message':message
+		'message':message,
+		"group": request.user.groups.all()[0].name
 	}
 	return render(request,template,context)
 
