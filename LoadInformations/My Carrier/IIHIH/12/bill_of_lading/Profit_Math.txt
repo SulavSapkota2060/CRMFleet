@@ -1,0 +1,6 @@
+its the (rates of the 7 completed * .10) * user percentage = profit
+
+
+so with with the users commission level at 70% and the total completed loads of $15000.
+
+$15000 * .10 = $1500 * .70 = $1050 Profit

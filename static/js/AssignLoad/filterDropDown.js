@@ -1,5 +1,4 @@
-
-const search = document.getElementById("carrierSearch");
+search = document.getElementById("carrierSearch");
 search.addEventListener("focus", showDropdown);
 search.addEventListener("keyup", filterCarriers);
 

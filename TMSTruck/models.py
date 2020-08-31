@@ -27,8 +27,8 @@ class Account(models.Model):
 	zipCode 				= models.IntegerField(null=True)
 	Phone 					= models.IntegerField(null=True)
 	userStatus 				= models.CharField(max_length=100,choices=choices,default='ACTIVE')
-	enrolledCarriers 		= models.TextField(null=True,max_length=3000)  
-	userRole				= models.CharField(null=True,max_length=100,choices=roleChoice,default='Trainee')  
+	enrolledCarriers 		= models.TextField(null=True,max_length=3000, blank=True)  
+	userRole				= models.CharField(null=True,max_length=100,choices=roleChoice,default='Trainee',blank=True)  
 	ndaNca 					= models.FileField(upload_to=w9UploadFile)
 	w9_upload				= models.FileField(upload_to=w9UploadFile,null=True)
 
@@ -36,7 +36,7 @@ class Account(models.Model):
 		return self.firstName
 
 def carrierMcFiles(instance, filename):
-    return 'Carrier MC/{0}{1}/{2}'.format(instance.firstName,instance.lastName, filename)
+    return 'Carrier Files/{0}{1}/{2}'.format(instance.firstName,instance.lastName, filename)
 
 
 
@@ -54,6 +54,8 @@ class Carrier(models.Model):
 	carrier_status			= models.CharField(max_length=100,null=True)
 	factoring_company		= models.CharField(max_length=100,null=True)
 	mc_upload		 		= models.FileField(upload_to=carrierMcFiles,null=True)
+	w9_upload 				= models.FileField(upload_to=carrierMcFiles,null=True)
+	insurance				= models.FileField(upload_to=carrierMcFiles,null=True)
 	costPerMile				= models.IntegerField(null=True)
 
 

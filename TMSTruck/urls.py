@@ -41,7 +41,10 @@ urlpatterns = [
 	path('password', views.change_password, name='change_password'),
 	path('user_info',views.user_info,name='user_info'),
 	path('all_users',views.all_users,name='all_users'),
-	path('remove_carrier/<str:pk>',views.remove_carrier,name='remove_carrier')
+	path('remove_carrier/<str:pk>',views.remove_carrier,name='remove_carrier'),
+	path('update_load/<str:pk>',views.edit_loads,name='update_load'),
+	path('update_carrier/<str:pk>',views.update_carrier,name='update_carrier'),
+	path('update_user',views.update_profile,name='update_user')
 
 
 ]

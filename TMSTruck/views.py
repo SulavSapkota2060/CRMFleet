@@ -19,7 +19,7 @@ from django.template.loader import get_template
 from django.views import View
 from xhtml2pdf import pisa
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 import re
 
 def render_to_pdf(template_src, context_dict={}):
@@ -133,7 +133,8 @@ def dashboard(request):
 			print(i.rate)
 		print(total_price)
 		profit = (total_price*0.1)*(Commission/100)
-		return profit
+		x = "{:.2f}".format(profit)
+		return x
 	loadsCount = {
 		'sevenLoads':AssignLoad.objects.filter(user=ac,is_active=False,assigned_date__range=[datetime.now()-timedelta(days=7),datetime.now()]),
 		'thirtyLoads': AssignLoad.objects.filter(user=ac,is_active=False,assigned_date__range=[datetime.now()-timedelta(days=30),datetime.now()]),
@@ -155,7 +156,8 @@ def dashboard(request):
 		'unpaidLoads':unpaidLoads,
 		'group':group,
 		'loadsCount':loadsCount,
-		'profits':profits
+		'profits':profits,
+		'ac':ac
 
 	}
 
@@ -164,7 +166,7 @@ def dashboard(request):
 		date_from = request.POST.get('Datefrom')
 		loadsCount['customLoads'] = AssignLoad.objects.filter(user=ac,is_active=False,is_awaiting=False,is_awb=False,assigned_date__range=[date_from,date_to]).count()
 		profits['customProfit'] = profit(AssignLoad.objects.filter(user=ac,is_active=False,assigned_date__range=[date_from,date_to]),ac.commissionRate),
-		con = str(profits['customProfit'])[1:-2]
+		con = str(profits['customProfit'])[2:-3]
 		context['con'] = con
 		return render(request,'TMSTruck/dashboard.html',context)
 	return render(request,'TMSTruck/dashboard.html',context)
@@ -504,8 +506,12 @@ def add_carrier(request):
 		a.user = Account.objects.get(user=request.user)
 		print(a.user)
 		if form.is_valid():
+			ac = Account.objects.get(user=request.user)
+			a = form.save(commit=False)
+			ac.enrolledCarriers += '{} {}, '.format(a.firstName,a.lastName)
+			ac.save()
 			form.save()
-
+			return redirect("all_carrier")
 		else:
 			return HttpResponse("Invalid Form")
 
@@ -525,7 +531,7 @@ def training_center(request):
 
 
 @login_required(login_url="login")
-@customRoles(allowed_roles=['Admin','Accounting'])
+@customRoles(allowed_roles=['Admin','Accounting','Logistics Manager'])
 def invoicing(request,pk):
 	user = request.user
 	carrier = Carrier.objects.get(id=pk)
@@ -663,6 +669,7 @@ def awaiting_detail(request,pk):
 		a.user = b.user
 		ac = request.POST.get("carrier")
 		a.first_available_pickup = b.first_available_pickup
+		
 		print(ac)
 
 		#matching accurate account instance to be filled in the form
@@ -908,7 +915,7 @@ def unpaid_loads(request):
 
 
 @login_required(login_url="login")
-@customRoles(allowed_roles=['Admin','Accounting'])
+@customRoles(allowed_roles=['Admin','Accounting','Logistics Manager'])
 def pdf_invoice(request,pk):
 	user = request.user
 	carrier = Carrier.objects.get(id=pk)
@@ -938,7 +945,7 @@ def pdf_invoice(request,pk):
 
 
 @login_required(login_url="login")
-@customRoles(allowed_roles=['Admin','Accounting'])
+@customRoles(allowed_roles=['Admin','Accounting','Logistics Manager'])
 def all_invoice(request):
 	ac = Account.objects.get(user=request.user)
 	carrier = Carrier.objects.all()
@@ -984,3 +991,86 @@ def remove_carrier(request,pk):
 	Carrier.objects.get(id=pk).delete()
 
 	return redirect("all_carrier")
+
+
+
+
+
+@login_required(login_url='login')
+@customRoles(allowed_roles=['Admin','Accounting','Hiring Manager', 'Logistics Manager'])
+def edit_loads(request,pk):
+	template = 'TMSTruck/load_info/editLoad.html'
+	
+	load = AssignLoad.objects.get(id=pk)
+	form = AssignLoadForm(instance=load)
+	
+	a=form.save(commit=False)
+	j = json.loads(a.dropOffAddress)
+	ad = j["stopAddresses"]
+	address_list = []
+	for i in ad:
+		address_list.append(i)
+	if request.method == 'POST':
+		form=AssignLoadForm(request.POST,request.FILES,instance=load)
+		
+		if form.is_valid():
+			a=form.save(commit=False)
+			a.user = Account.objects.get(user=request.user)
+			form.save()
+			return redirect("all_loads")
+
+	context = {
+		'form':form,
+		'address':address_list,
+		'group':request.user.groups.all()[0].name
+	}
+	return render(request,template,context)
+
+
+
+
+@login_required(login_url='login')
+@customRoles(allowed_roles=['Admin','Accounting','Hiring Manager', 'Logistics Manager'])
+def update_carrier(request,pk):
+	carrier = Carrier.objects.get(id=pk)
+	template= 'TMSTruck/carrier/edit_carrier.html'
+	form  = CarrierForm(instance=carrier)
+
+	if request.method == 'POST':
+		form= CarrierForm(request.POST,request.FILES,instance=carrier)
+		if form.is_valid():
+			form.save()
+			return redirect("all_carrier")
+	context = {
+		'form':form,
+		'group':request.user.groups.all()[0].name
+	}
+
+	return render(request,template,context)
+
+
+
+
+@login_required(login_url='login')
+@customRoles(allowed_roles=['Admin','Accounting','Hiring Manager', 'Logistics Manager'])
+def update_profile(request):
+	user = Account.objects.get(user=request.user)
+	template= 'TMSTruck/edit_user.html'
+	form  = UserRegistrationForm(instance=user)
+	actual_form = EditUserForm(instance= request.user)
+	if request.method == 'POST':
+		form= UserRegistrationForm(request.POST,request.FILES,instance=user)
+		actual_form= EditUserForm(request.POST,instance=request.user)
+		if form.is_valid() and actual_form.is_valid():
+			form.save()
+			actual_form.save()
+			return redirect("dashboard")
+		else:
+			print("EOR")
+	context = {
+		'form':form,
+		'actual_form':actual_form,
+		'group':request.user.groups.all()[0].name
+	}
+
+	return render(request,template,context)

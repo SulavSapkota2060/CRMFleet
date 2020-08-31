@@ -53,6 +53,7 @@
                                     <th scope="col">Company</th>
                                     <th scope="col">Factoring Company</th>
                                     <th scope="col">Details</th>
+                                    <th scope="col">Update</th>
                                     <th scope="col">Remove</th>
         
                                 </tr>
@@ -67,6 +68,7 @@
                                     <td>{{carrier.company}}</td>
                                     <td>{{carrier.factoring_company}}</td>
                                     <td><a href="{% url 'user_detail' carrier.id %}"><button class="btn btn-outline-info btn-sm">Details</button></a></td>
+                                    <td><a href="{% url 'update_carrier' carrier.id %}"><button class="btn btn-outline-warning btn-sm">Update</button></a></td>
                                     <td><a href="{% url 'remove_carrier' carrier.id %}"><button class="btn btn-outline-danger btn-sm">Remove</button></a></td>
                                    
                             

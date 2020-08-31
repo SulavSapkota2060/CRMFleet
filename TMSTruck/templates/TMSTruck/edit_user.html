@@ -50,14 +50,15 @@
                 <div class="form">
                 <form class="mb-3" action="" method="POST"  enctype="multipart/form-data">
                     {% csrf_token %}
-                    <h2 align="center">Register</h2>
+                    <h2 align="center">Edit Personal Details</h2>
 <hr>
 <div class="row">{% if message  %}
     <div id='alert' class="alert alert-danger">{{message}}</div>
     {% endif %}
 
-    <div class="col-md-5">  
-        {{actual_form | crispy}}
+    <div class="col-md-5"> 
+         {{actual_form.username | as_crispy_field}}
+         {{actual_form.email | as_crispy_field}}
                     <div id="form-group" class="name">
                         <div>{{form.firstName | as_crispy_field }}</div>
                         <div>{{form.lastName | as_crispy_field }}</div>
@@ -82,7 +83,6 @@
                     <div class="enrolled">
                         {{form.userStatus | as_crispy_field}}
                         {{form.commissionRate | as_crispy_field}}
-                        {{form.userRole | as_crispy_field}}
                       
                     </div>
            

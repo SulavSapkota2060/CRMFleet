@@ -57,3 +57,12 @@ class CarrierForm(ModelForm):
     class Meta:
         model = Carrier
         fields = '__all__'
+
+
+
+
+
+class EditUserForm(UserChangeForm):
+    class Meta:
+        model=User
+        fields = ['username','email']

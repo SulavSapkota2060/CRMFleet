@@ -55,6 +55,8 @@
         {% include 'TMSTruck/navbars/logistics_manager.html' %}
 
         {% endif %}        <hr>
+        <div class="alert alert-info text-center">Attach Signed Rate of Confirmation only.</div>
+
         <form autocomplete="off" action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
@@ -69,8 +71,17 @@
                 {{form.broker_address | as_crispy_field}}
 
             </div>
-           
-           
+           <div class="input-group">
+            {{form.load_number  | as_crispy_field}}
+            {{form.rate | as_crispy_field}}            
+           </div>
+ 
+           <div class="input-group">
+  
+            {{form.distance | as_crispy_field}}
+            {{form.weight | as_crispy_field}}
+            
+        </div>
            <div style="display: none;">{{form.assignToCarrier | as_crispy_field }}</div> 
            
            
@@ -80,21 +91,44 @@
                     <label for="pickupDate">Pickup Date*</label>   
                     <input type="date" name="pickupDate" id="pickupDate" class="form-control">
                 </div>
-                {{form.pickupAddress | as_crispy_field}}
-
+               <div style="width: 40%;">{{form.pickupAddress | as_crispy_field}}</div> 
+                <div id="first_available_pickup">
+                    <label for="first_available_pickup">First Avalable Pickup Date*</label>   
+                    <input type="date" name="first_available_pickup" id="first_available_pickup" class="form-control">
+                </div>
             </div>
-            
+           
             <div class="input-group">
-  
-                {{form.distance | as_crispy_field}}
-                {{form.weight | as_crispy_field}}
-                {{form.rate | as_crispy_field}}
-               
-                {{form.load_number  | as_crispy_field}}
+                {{form.stops | as_crispy_field}}
+                    <div id="dropOffDate">
+                        <label for="dropOffDate">DropOff Date*</label>   
+                        <input type="date" name="dropOffDate" id="dropOffDate" class="form-control">
+                    </div>
+    
+                    <div style= "display: none;">{{form.dropOffAddress| as_crispy_field}}</div>
+                
             </div>
-          
+
+            <div id="stopArea">
+                <h5>DropOff Addresses</h5>
+                <div id="stop-input">
+                    <ul class="list-group">
+                        {% for i in address %} 
+                        <li class="list-group-item"> {{i}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
 
 
+            {{form.special_comments | as_crispy_field}}
+<br>
+            <div class="input-group">
+
+                {{form.rate_confirmation| as_crispy_field}}
+    
+            </div>
+            <br>
             <div class="input-group">
   <div style="position: relative;">
                 <label for="carrier">Select Carrier</label>
@@ -109,51 +143,21 @@
           
 
 
-            <div class="input-group">
-                <div id="dropOffDate">
-                    <label for="dropOffDate">DropOff Date*</label>   
-                    <input type="date" name="dropOffDate" id="dropOffDate" class="form-control">
-                </div>
-
-                <div style= "display: none;">{{form.dropOffAddress| as_crispy_field}}</div>
+         
 
 
-                <div id="first_available_pickup">
-                    <label for="first_available_pickup">First Avalable Pickup Date*</label>   
-                    <input type="date" name="first_available_pickup" id="first_available_pickup" class="form-control">
-                </div>
-
-            </div>
-            
-
-            {{form.special_comments | as_crispy_field}}
-
-            <div class="input-group">
-
-                {{form.rate_confirmation| as_crispy_field}}
-    
-            </div>
+           
 
             
 
 
-            <div id="stopArea">
-                {{form.stops | as_crispy_field}}
-                <h5>DropOff Addresses</h5>
-                <div id="stop-input">
-                    <ul class="list-group">
-                        {% for i in address %} 
-                        <li class="list-group-item"> {{i}}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <button class="btn btn-outline-dark btn-block mt-5 mb-5" onclick="toJSON()">Send To Broker</button>
-            </div>
+            <button class="btn btn-outline-dark btn-block mt-5 mb-5" onclick="toJSON()">Send To Broker</button>
+
         </form>
    
     </div>
 
-
+</div>
     <script src="{% static 'js/AssignLoad/filterDropDown.js' %}"></script>
     <script src="{% static 'js/AssignLoad/assignScript.js' %}"></script>
     <script src="{% static 'js/AssignLoad/filterDropDown.js' %}"></script>
