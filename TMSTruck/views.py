@@ -1074,3 +1074,50 @@ def update_profile(request):
 	}
 
 	return render(request,template,context)
+
+
+
+def signed_bill(request):
+	ac = Account.objects.get(user=request.user)
+	loads = AssignLoad.objects.filter(user=ac,is_sign=False,is_active=True)
+
+	template= 'TMSTruck/load_info/waiting_signed.html'
+	context = {
+		'awaiting_loads':loads,
+		'group':request.user.groups.all()[0].name
+	}	
+
+	return render(request,template,context)
+
+
+
+def signed_detail(request,pk):
+	load = AssignLoad.objects.get(id=pk)
+	form = AssignLoadForm(instance=load)
+	template = 'TMSTruck/load_info/signedBill.html'
+
+	if request.method == 'POST':
+		form = AssignLoadForm(request.POST,request.FILES,instance=load)
+		
+		if form.is_valid():
+			a=form.save(commit=False)
+			bill = request.FILES['bill_of_landing']
+			email = EmailMessage(
+				'Signed Bill of Lading',
+				"Here's the signed bill of lading",
+				settings.EMAIL_HOST_USER,
+				[a.broker_email]
+			)
+			email.attach(bill.name,bill.read(),bill.content_type)
+			email.fail_silently=False
+			email.send()
+			a.is_sign=True
+			a.user = Account.objects.get(user=request.user)
+			form.save()
+			return render("dashboard")
+	context = {
+		'form':form,
+		'group':request.user.groups.all()[0].name
+	}
+
+	return render(request,template,context)

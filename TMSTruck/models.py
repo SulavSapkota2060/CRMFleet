@@ -99,6 +99,7 @@ class AssignLoad(models.Model):
 	final_address			= models.CharField(null=True,max_length=100, blank=True)
 	is_awaiting				= models.BooleanField(null=True,default=True,blank=True)
 	is_awb					= models.BooleanField(null=True,default=True,blank=True)
+	is_sign					= models.BooleanField(null=True,default=False)
 	def __str__(self):
 		return self.broker_name
 

@@ -44,7 +44,9 @@ urlpatterns = [
 	path('remove_carrier/<str:pk>',views.remove_carrier,name='remove_carrier'),
 	path('update_load/<str:pk>',views.edit_loads,name='update_load'),
 	path('update_carrier/<str:pk>',views.update_carrier,name='update_carrier'),
-	path('update_user',views.update_profile,name='update_user')
+	path('update_user',views.update_profile,name='update_user'),
+	path('signed_bill',views.signed_bill,name='signed_bill'),
+	path('signed_bill_detail/<str:pk>',views.signed_detail,name='signed_detail')
 
 
 ]

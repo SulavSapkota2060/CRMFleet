@@ -33,42 +33,31 @@
         {% include 'TMSTruck/navbars/logistics_manager.html' %}
 
         {% endif %}<br><br>
-        <div class="brns" style="display: flex; grid-gap: 20px;">
-            <div class="col-md-6 mx-auto">
-                <a style="display: flex; justify-content: center; "class="mb-4 alert alert-primary" href="{% url 'awaiting_loads' %}">Loads Awaiting Completion</a>
-            </div>
-    
-            <div class="col-md-6 mx-auto">
-                <a style="display: flex; justify-content: center; "class="mb-4 alert alert-primary" href="{% url 'signed_bill' %}">Loads Awaiting Signed Bill of Lading</a>
-            </div>
-        </div>
-        
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">All Loads</div>
+                    <div class="card-header">To Send Signed Bill of Lading to Broker/Factoring Company <i style="float: right;" title="This is the list of loads whose signed bill of lading is received but not sent to the broker." class="fa fa-info-circle" aria-hidden="true"></i></div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Assigned Date</th>
-                                    <th scope="col">Load Number</th>
+                                    <th scope="col">Load Number </th>
                                     <th scope="col">Brokerage Name</th>
                                     <th scope="col">Broker Name</th>
                                     <th scope="col">Carrier</th>
                                     <th scope="col">Distance</th>
                                     <th scope="col">Pick Up Date</th>
                                     <th scope="col">Drop Off Date</th>
-                                    <th scope="col">Active</th>
-                                    <th scope="col">Paid</th>
-                                    <th scope="col">Update</th>
+                                    <th scope="col">Rate</th>
+                                    <th scope="col">Details</th>
+
         
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for loads in all_loads %}
+                                {% for loads in awaiting_loads %}
                                 <tr>
-                                    <td>{{loads.assigned_date}}</td>
                                     <td><a href="{% url 'load_detail' loads.id %}">{{loads.load_number}}</a></td>
                                     <td>{{loads.brokerage_name}}</td>
                                     <td>{{loads.broker_name}}</td>
@@ -76,20 +65,8 @@
                                     <td>{{loads.distance}}</td>
                                     <td>{{loads.pickupDate}}</td>
                                     <td>{{loads.dropOffDate}}</td>
-                                    {% if loads.is_active == True %}
-                                    <td><button class="btn btn-success btn-sm">Yes</button> </td>
-                                    {% else %}
-                                    <td><button class="btn btn-danger btn-sm">No</button></td>
-                                    {% endif %}
-                                    
-
-                                    {% if loads.is_paid == True %}
-                                    <td><button class="btn btn-success btn-sm">Yes</button> </td>
-                                    {% else %}
-                                    <td><button class="btn btn-danger btn-sm">No</button></td>
-                                    {% endif %}
-                                    <td><a href="{% url 'update_load' loads.id %}"><button class="btn btn-primary btn-sm">Update</button></a> </td>
-
+                                    <td>${{loads.rate}}</td>
+                                    <td> <a href="{% url 'signed_detail' loads.id %}"><button class="btn btn-outline-info btn-sm">View</button></a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -97,9 +74,14 @@
                     </div>
                 </div>
             </div>
-           
+          
         </div>
+        <hr>    
+ 
     </div>
+    </div>
+
+    
 </body>
 
 </html>
