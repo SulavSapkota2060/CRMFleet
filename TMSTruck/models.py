@@ -50,6 +50,7 @@ class Carrier(models.Model):
 	mc_number 				= models.IntegerField(null=True)
 	dot_number				= models.IntegerField(null=True)
 	factoring_phone			= models.IntegerField(null=True)
+	factoring_email			= models.EmailField(null=True,max_length=100)
 	willing_states			= models.TextField(max_length=1000,null=True)
 	carrier_status			= models.CharField(max_length=100,null=True)
 	factoring_company		= models.CharField(max_length=100,null=True)
@@ -57,6 +58,7 @@ class Carrier(models.Model):
 	w9_upload 				= models.FileField(upload_to=carrierMcFiles,null=True)
 	insurance				= models.FileField(upload_to=carrierMcFiles,null=True)
 	costPerMile				= models.IntegerField(null=True)
+	
 
 
 	def __str__(self):

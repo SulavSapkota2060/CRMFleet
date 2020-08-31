@@ -1108,7 +1108,7 @@ def update_user(request,pk):
 @customRoles(allowed_roles=['Admin','Accounting','Hiring Manager', 'Logistics Manager'])
 def signed_bill(request):
 	ac = Account.objects.get(user=request.user)
-	loads = AssignLoad.objects.filter(user=ac,is_sign=False,is_active=True)
+	loads = AssignLoad.objects.filter(user=ac,is_sign=False,is_active=True,is_awb=False,is_awaiting=False)
 
 	template= 'TMSTruck/load_info/waiting_signed.html'
 	context = {
@@ -1128,22 +1128,62 @@ def signed_detail(request,pk):
 	if request.method == 'POST':
 		form = AssignLoadForm(request.POST,request.FILES,instance=load)
 		
+		carrier = Carrier.objects.get(id=load.assignToCarrier.id)
+
+	
+
 		if form.is_valid():
 			a=form.save(commit=False)
 			bill = request.FILES['bill_of_landing']
-			email = EmailMessage(
+
+			if 'emailBroker' in request.POST:
+				email = EmailMessage(
 				'Signed Bill of Lading',
 				"Here's the signed bill of lading",
 				settings.EMAIL_HOST_USER,
-				[a.broker_email]
-			)
-			email.attach(bill.name,bill.read(),bill.content_type)
-			email.fail_silently=False
-			email.send()
-			a.is_sign=True
-			a.user = Account.objects.get(user=request.user)
-			form.save()
-			return render("dashboard")
+				[a.broker_email],
+				
+				)
+				email.attach(bill.name,bill.read(),bill.content_type)
+				email.fail_silently=False
+				email.send()
+				return redirect("signed_bill")
+
+			if 'emailFactoringCompany' in request.POST:
+				email = EmailMessage(
+				'Signed Bill of Lading',
+				"Here's the signed bill of lading",
+				settings.EMAIL_HOST_USER,
+				[carrier.factoring_email],
+				
+				)
+				email.attach(bill.name,bill.read(),bill.content_type)
+				email.fail_silently=False
+				email.send()
+				print(carrier.factoring_email)
+				return redirect("signed_bill")
+
+			if 'emailBoth' in request.POST:
+				email = EmailMessage(
+				'Signed Bill of Lading',
+				"Here's the signed bill of lading",
+				settings.EMAIL_HOST_USER,
+				[a.broker_email,carrier.factoring_email],
+				
+				)
+				email.attach(bill.name,bill.read(),bill.content_type)
+				email.fail_silently=False
+				email.send()
+				return redirect("signed_bill")
+			
+
+			
+			if 'save' in request.POST:
+				a.user = Account.objects.get(user=request.user)
+				dropadd = json.loads(a.dropOffAddress)
+				a.final_address = dropadd["stopAddresses"][-1]
+				form.save()
+				return redirect("signed_bill")
 	context = {
 		'form':form,
 		'group':request.user.groups.all()[0].name

@@ -95,10 +95,7 @@
                     <input type="date" name="pickupDate" id="pickupDate" class="form-control">
                 </div>
                 <div style="width: 40%;">{{form.pickupAddress | as_crispy_field}}</div>
-                <div id="first_available_pickup">
-                    <label for="first_available_pickup">First Avalable Pickup Date*</label>   
-                    <input type="date" name="first_available_pickup" id="first_available_pickup" class="form-control">
-                </div>
+                {{form.first_available_pickup | as_crispy_field}}
 
             </div>
             <div class="input-group">
