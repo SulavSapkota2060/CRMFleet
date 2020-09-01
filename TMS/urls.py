@@ -29,4 +29,5 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.LOAD_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.MY_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.DEPLOY_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.NDA_URL, document_root=settings.MY_ROOT)
 

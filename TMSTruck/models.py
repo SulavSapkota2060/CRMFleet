@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 def w9UploadFile(instance, filename):
-    return 'Users NDA NCA W9 Files/{0}{1}/{2}'.format(instance.firstName,instance.lastName, filename)
+    return 'Users_NDA_NCA_W9_Files/{0}{1}/{2}'.format(instance.firstName,instance.lastName, filename)
 
 
 class Account(models.Model):

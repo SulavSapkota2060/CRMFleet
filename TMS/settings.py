@@ -148,8 +148,8 @@ MEDIA_URL = '/files/'
 
 
 #FOR USER FILES
-NDA_URL ='ndaNnca'
-W9_URL= 'w9'
+NDA_URL ='/Users_NDA_NCA_W9_Files/'
+
 MC_URL = 'mc'
 
 
@@ -160,3 +160,4 @@ LOAD_URL = '/carrier_detail/'
 MY_URL = '/load_detail/'
 DEPLOY_URL = '/app/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '')
+MY_ROOT= os.path.join(BASE_DIR,'Users_NDA_NCA_W9_Files')
