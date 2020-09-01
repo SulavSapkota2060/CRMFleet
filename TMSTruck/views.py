@@ -392,6 +392,13 @@ def load_detail(request,pk):
 	load = AssignLoad.objects.get(id=pk)
 	j = json.loads(load.dropOffAddress)
 	print(type(j))
+	bol = load.bill_of_landing.url
+	roc = load.rate_confirmation.url
+	urls = {
+	'bol':bol[12:],
+	'roc':roc[12:]
+	}
+
 	a = j["stopAddresses"]
 	template = 'TMSTruck/load_detail.html'
 	address_list = []
@@ -402,7 +409,9 @@ def load_detail(request,pk):
 	context = {
 		'load':load,
 		'group':group,
-		'address':address_list
+		'address':address_list,
+		'url':urls,
+		'dir':settings.BASE_DIR
 	}
 	return render(request,template,context)
 

@@ -158,4 +158,5 @@ MC_URL = 'mc'
 MEDIA_URL = '/user_detail/'
 LOAD_URL = '/carrier_detail/'
 MY_URL = '/load_detail/'
+DEPLOY_URL = '/app/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '')
